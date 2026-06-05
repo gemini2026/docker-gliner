@@ -1,0 +1,31 @@
+# Demo: a host-GPU GLiNER server orchestrated by docker compose via the
+# docker-gliner provider plugin, plus a consumer service that receives the
+# injected endpoint.
+#
+# Prereqs:
+#   - Docker Desktop 4.41+ / Compose v2.35+ (provider services support)
+#   - the `docker-gliner` binary on $PATH (go build ./cmd/docker-gliner)
+#   - Python deps for the bundled server: pip install -r ../server/requirements.txt
+#
+# Run:
+#   docker compose -f examples/compose.yaml up
+# On a Mac the server comes up on MPS; curl localhost:8100/health shows
+# "device":"mps". The consumer prints the injected NER_ENDPOINT.
+
+services:
+  ner:
+    provider:
+      type: gliner
+      options:
+        device: auto                       # cuda -> mps -> cpu
+        model: fastino/gliner2-base-v1
+        port: "8100"
+        endpoint_var: ENDPOINT             # consumers see NER_ENDPOINT
+        # server: /abs/path/to/server/serve_gliner.py   # if not beside the binary
+
+  consumer:
+    image: alpine:3.20
+    depends_on:
+      - ner
+    # NER_ENDPOINT is injected by the provider's setenv (service "ner" + ENDPOINT).
+    command: ["sh", "-c", "echo \"GLiNER endpoint: $$NER_ENDPOINT\"; sleep 5"]

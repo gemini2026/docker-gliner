@@ -1,0 +1,7 @@
+# Runtime deps for the bundled GLiNER2 host server.
+# torch ships transitively with gliner2; install a device-appropriate build
+# (CUDA wheels on Linux+NVIDIA, the default arm64 wheel for Apple Silicon MPS).
+gliner2>=0.1.0
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.6
