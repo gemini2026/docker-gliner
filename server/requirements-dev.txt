@@ -1,0 +1,9 @@
+# Dev/test deps for the bundled server. The heavy runtime deps (gliner2, torch)
+# are faked in the tests, so they are intentionally excluded — the suite runs on
+# any machine, including CPU-only CI, without a model download.
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.6
+httpx>=0.27        # required by fastapi/starlette TestClient
+pytest>=8
+ruff>=0.5

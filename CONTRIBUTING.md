@@ -15,7 +15,8 @@ go build ./...
 # Python server side
 cd server
 python -m venv .venv && . .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt          # runtime (gliner2, torch, fastapi, ...)
+pip install -r requirements-dev.txt      # test deps (no torch/gliner2 — they're faked)
 ```
 
 A `Makefile` wraps the common commands: `make build`, `make test`,

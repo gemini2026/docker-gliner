@@ -32,8 +32,8 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install test deps
-        # fastapi/uvicorn/pydantic/ruff/pytest only — torch and gliner2 are heavy
-        # and faked in the tests, so they are intentionally not installed here.
-        run: pip install fastapi uvicorn pydantic pytest ruff
+        # torch and gliner2 are heavy and faked in the tests, so they are
+        # intentionally excluded from requirements-dev.txt.
+        run: pip install -r server/requirements-dev.txt
       - run: ruff check server/
       - run: python -m pytest server/ -q
