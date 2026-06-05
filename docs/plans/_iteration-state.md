@@ -9,6 +9,7 @@
 | Epic | Title | Date delivered | Scope items |
 |------|-------|---------------|-------------|
 | 000 | Core build — Compose provider plugin + bundled GLiNER server | 2026-06-04 | REQ-1..REQ-9 (T-001..T-010 of the original build plan) |
+| 001 | OSS readiness & publication | 2026-06-04 | REQ-10, REQ-11, REQ-12, OSS-1..OSS-4 |
 
 Epic 000 shipped in commit `6c40d0b`: Go provider binary (protocol parsing,
 line-delimited JSON messages, detached subprocess runner with PID-file state,
@@ -16,11 +17,14 @@ health poll), bundled GLiNER2 FastAPI server, example compose, PROTOCOL.md,
 README, Apache-2.0 LICENSE. `go test ./...` green, `pytest server/` 8 passing,
 `docker compose config` valid, gofmt + ruff clean.
 
+Epic 001: published to https://github.com/gemini2026/docker-gliner (public),
+module path aligned to `github.com/gemini2026/docker-gliner`, GitHub Actions CI
+green (go + server jobs), tagged + released `v0.1.0`, plus OSS hygiene
+(CONTRIBUTING, CHANGELOG, Makefile, issue/PR templates).
+
 ## Current Epic
 
-| Epic | Title | Status | Scope items |
-|------|-------|--------|-------------|
-| 001 | OSS readiness & publication | In Progress | REQ-10 (CI), REQ-11 (publish), REQ-12 (release), OSS-1..OSS-4 (hygiene) |
+None active. Next up is Epic 002 (agentboost integration) from the backlog.
 
 ## Backlog
 
@@ -36,12 +40,12 @@ README, Apache-2.0 LICENSE. `go test ./...` green, `pytest server/` 8 passing,
 
 | ID | Blocker | Blocks | Owner | Status |
 |----|---------|--------|-------|--------|
-| Q-1 | GitHub owner mismatch: module path is `github.com/amichel/...` but the only authenticated `gh` account is `gemini2026`. Determines publish target + whether `go.mod` module path changes. | REQ-11, REQ-12 | user | Pending |
-| Q-2 | Add GitHub Actions CI? (global rule: confirm before adding CI/CD) | REQ-10 | user | Pending |
+| Q-1 | GitHub owner mismatch. | REQ-11, REQ-12 | user | Resolved: publish under `gemini2026`, module renamed to match. |
+| Q-2 | Add GitHub Actions CI? | REQ-10 | user | Resolved: yes — `.github/workflows/ci.yml` added, green. |
 
 ## Progress Summary
 
 - Total scope items: 13
-- Delivered: 9 (69%) — Epic 000 core build
-- Current Epic: 001 (OSS readiness)
-- Remaining: 4 items in Epic 001 + 5 backlog items across ~2 Epics
+- Delivered: 13 (100% of scoped) — Epics 000 + 001
+- Current Epic: none active
+- Remaining: 5 backlog items across ~2 Epics (agentboost integration, cloud profiles, registry/Homebrew)
