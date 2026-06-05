@@ -27,5 +27,5 @@ First release.
 - Example `examples/compose.yaml`, protocol notes in `docs/PROTOCOL.md`, and an
   Apache-2.0 license.
 
-[Unreleased]: https://github.com/amichel/docker-gliner/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/amichel/docker-gliner/releases/tag/v0.1.0
+[Unreleased]: https://github.com/gemini2026/docker-gliner/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/gemini2026/docker-gliner/releases/tag/v0.1.0

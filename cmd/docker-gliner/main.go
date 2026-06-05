@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/amichel/docker-gliner/internal/provider"
-	"github.com/amichel/docker-gliner/internal/runner"
+	"github.com/gemini2026/docker-gliner/internal/provider"
+	"github.com/gemini2026/docker-gliner/internal/runner"
 )
 
 func main() {

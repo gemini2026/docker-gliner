@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    name: Go (vet, build, test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - run: go vet ./...
+      - run: go build ./...
+      - run: go test ./...
+      - name: gofmt
+        run: test -z "$(gofmt -l .)" || (gofmt -l . && echo "run gofmt -w ." && exit 1)
+
+  server:
+    name: Server (ruff, pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test deps
+        # fastapi/uvicorn/pydantic/ruff/pytest only — torch and gliner2 are heavy
+        # and faked in the tests, so they are intentionally not installed here.
+        run: pip install fastapi uvicorn pydantic pytest ruff
+      - run: ruff check server/
+      - run: python -m pytest server/ -q
